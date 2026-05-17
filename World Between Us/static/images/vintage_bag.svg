@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150" width="100%" height="100%">
+  <defs>
+    <!-- Soft dropshadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="3" dy="6" stdDeviation="4" flood-opacity="0.4"/>
+    </filter>
+    <!-- Brown leather gradients -->
+    <linearGradient id="leatherGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8D6E63" />
+      <stop offset="50%" stop-color="#5D4037" />
+      <stop offset="100%" stop-color="#3E2723" />
+    </linearGradient>
+    <linearGradient id="leatherFlap" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A1887F" />
+      <stop offset="100%" stop-color="#4E342E" />
+    </linearGradient>
+    <linearGradient id="strapGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3E2723" />
+      <stop offset="50%" stop-color="#5D4037" />
+      <stop offset="100%" stop-color="#3E2723" />
+    </linearGradient>
+    <!-- Gold gradient -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF59D" />
+      <stop offset="50%" stop-color="#FBC02D" />
+      <stop offset="100%" stop-color="#F57F17" />
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <!-- Bag Handle -->
+    <path d="M 50,30 C 50,15 100,15 100,30" fill="none" stroke="url(#strapGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Handle Metal Mounts -->
+    <rect x="47" y="27" width="8" height="6" rx="2" fill="url(#gold)" stroke="#1a0c00" stroke-width="1"/>
+    <rect x="95" y="27" width="8" height="6" rx="2" fill="url(#gold)" stroke="#1a0c00" stroke-width="1"/>
+    
+    <!-- Bag Main Pocket Pouch -->
+    <rect x="20" y="50" width="110" height="85" rx="10" fill="url(#leatherGrad)" stroke="#1a0c00" stroke-width="2"/>
+    
+    <!-- Front Pocket Panel -->
+    <rect x="30" y="70" width="90" height="55" rx="6" fill="#3E2723" stroke="#1a0c00" stroke-width="1.5"/>
+    <!-- Stitch lines on front pocket -->
+    <rect x="33" y="73" width="84" height="49" rx="4" fill="none" stroke="#8D6E63" stroke-width="1" stroke-dasharray="3,3"/>
+    
+    <!-- Top Cover Flap -->
+    <path d="M 20,50 
+             L 130,50 
+             L 130,90 
+             C 130,105 100,105 75,105 
+             C 50,105 20,105 20,90 
+             Z" 
+          fill="url(#leatherFlap)" stroke="#1a0c00" stroke-width="2" />
+          
+    <!-- Stitch lines on Flap -->
+    <path d="M 23,52 L 127,52 L 127,88 C 127,101 99,101 75,101 C 51,101 23,101 23,88 Z" fill="none" stroke="#D7CCC8" stroke-width="1" stroke-dasharray="3,2" opacity="0.7"/>
+
+    <!-- Left Strap -->
+    <rect x="42" y="46" width="14" height="65" rx="2" fill="url(#strapGrad)" stroke="#1a0c00" stroke-width="1.5"/>
+    <rect x="45" y="49" width="8" height="59" fill="none" stroke="#8D6E63" stroke-dasharray="2,2" stroke-width="0.8"/>
+    
+    <!-- Right Strap -->
+    <rect x="94" y="46" width="14" height="65" rx="2" fill="url(#strapGrad)" stroke="#1a0c00" stroke-width="1.5"/>
+    <rect x="97" y="49" width="8" height="59" fill="none" stroke="#8D6E63" stroke-dasharray="2,2" stroke-width="0.8"/>
+    
+    <!-- Gold Buckle Left -->
+    <rect x="39" y="85" width="20" height="16" rx="3" fill="url(#gold)" stroke="#1a0c00" stroke-width="1.5"/>
+    <rect x="44" y="90" width="10" height="6" fill="#3E2723" stroke="#1a0c00" stroke-width="1"/>
+    <line x1="49" y1="85" x2="49" y2="101" stroke="#1a0c00" stroke-width="2"/>
+    
+    <!-- Gold Buckle Right -->
+    <rect x="91" y="85" width="20" height="16" rx="3" fill="url(#gold)" stroke="#1a0c00" stroke-width="1.5"/>
+    <rect x="96" y="90" width="10" height="6" fill="#3E2723" stroke="#1a0c00" stroke-width="1"/>
+    <line x1="101" y1="85" x2="101" y2="101" stroke="#1a0c00" stroke-width="2"/>
+    
+    <!-- Label Stamp: "sad girls times" (stylized engraving) -->
+    <rect x="52" y="60" width="46" height="14" rx="2" fill="#3E2723" stroke="#1a0c00" stroke-width="0.8"/>
+    <text x="75" y="69" fill="#8D6E63" font-size="5" font-family="Courier, monospace" font-weight="bold" text-anchor="middle" letter-spacing="0.5">sad girls</text>
+  </g>
+</svg>

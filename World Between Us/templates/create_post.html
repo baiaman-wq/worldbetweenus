@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>новый пост — грустная школа экономики</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <style>
+    body {
+      background-color: var(--bg-concrete);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom 8-bit Pointer Cursor -->
+  <div id="custom-cursor"></div>
+
+  <!-- Film Grain Overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Win98 Create Post window centered on concrete -->
+  <div class="retro-window-modal active" style="position: relative; top: 0; left: 0; transform: none; width: 100%; max-width: 600px; display: block; opacity: 1; box-shadow: var(--shadow-sticker);">
+    <div class="retro-window-header">
+      <div class="retro-window-title">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="white" style="margin-right: 4px;"><path d="M2 3h12v11H2V3zm1 3v7h10V6H3zm1-2h8v1H4V4z"/></svg>
+        создание новой публикации в сообществе
+      </div>
+      <a href="{% url 'index' %}" class="retro-window-close" style="text-decoration: none; cursor: none;">x</a>
+    </div>
+    
+    <div class="retro-window-body">
+      <h2 style="font-family: var(--font-serif); font-size: 26px; margin-bottom: 8px; text-align: center; text-transform: lowercase;">написать манифест</h2>
+      <p style="text-align: center; color: #555; font-size: 13px; margin-bottom: 25px; text-transform: lowercase;">поделись своими мыслями о медленности, тоске или выгорании</p>
+      
+      <form method="POST" action="{% url 'create_post' %}">
+        {% csrf_token %}
+        <div class="retro-form-group">
+          <label>заголовок публикации *</label>
+          <input type="text" name="title" class="retro-input" placeholder="как назвать твою мысль" required>
+        </div>
+        
+        <div class="retro-form-group">
+          <label>текст манифеста *</label>
+          <textarea name="content" class="retro-input" rows="8" placeholder="содержимое твоего послания..." required style="resize: vertical;"></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px;">
+          <a href="{% url 'index' %}" class="win98-btn" style="text-decoration: none; cursor: none; color: black; line-height: 1.4;">отмена</a>
+          <button type="submit" class="win98-btn">опубликовать</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="{% static 'js/cursor.js' %}"></script>
+</body>
+</html>

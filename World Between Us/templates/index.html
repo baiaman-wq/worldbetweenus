@@ -1,0 +1,566 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sad girls times — грустная школа экономики</title>
+  <meta name="description" content="грустная школа экономики — площадка для творческого осмысления грусти: литературный зин, радио, галерея.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+  <!-- Custom 8-bit Pointer Cursor -->
+  <div id="custom-cursor"></div>
+
+  <!-- Film Grain Texture Overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Modal Backdrop Blur Overlay -->
+  <div class="modal-overlay-blur"></div>
+
+  <!-- Floating Retro Navigation -->
+  <nav style="position: fixed; top: 15px; left: 15px; right: 15px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.97); border: 2px solid #000; padding: 10px 24px; border-radius: 4px; box-shadow: 3px 3px 0 #000; font-family: var(--font-sans); text-transform: lowercase;">
+    <div style="font-weight: 900; font-size: 20px; letter-spacing: -1px; color: var(--ink-black);">
+      <a href="{% url 'index' %}" style="cursor: none;">sad girls times.</a>
+    </div>
+    
+    <div style="display: flex; gap: 20px; font-weight: bold;">
+      <a href="#site-index" style="cursor: none; color: #444;">оглавление</a>
+      <a href="#about" style="cursor: none; color: #444;">о школе</a>
+      <a href="#faculties" style="cursor: none; color: #444;">направления</a>
+      <a href="#books-game" style="cursor: none; color: #444;">библиотека</a>
+      <a href="#complaints" style="cursor: none; color: #444;">жалобы</a>
+      <a href="#community" style="cursor: none; color: #444;">комьюнити</a>
+    </div>
+
+    <div style="display: flex; gap: 15px; align-items: center; font-size: 13px;">
+      {% if user.is_authenticated %}
+        <span style="color: #666; font-weight: bold;">привет, {{ user.username }}</span>
+        {% if user.is_superuser %}
+          <a href="/admin/" style="cursor: none; border-bottom: 1.5px solid #000; font-weight: bold;">админка</a>
+        {% endif %}
+        <a href="{% url 'create_post' %}" style="cursor: none; font-weight: bold; background: var(--accent-yellow); padding: 4px 10px; border: 1.5px solid #000; border-radius: 3px; box-shadow: 1.5px 1.5px 0 #000;">написать пост</a>
+        <a href="{% url 'logout' %}" style="cursor: none; color: red; font-weight: bold;">выйти</a>
+      {% else %}
+        <a href="{% url 'login' %}" style="cursor: none; font-weight: bold; background: #FFF59D; padding: 4px 10px; border: 1.5px solid #000; border-radius: 3px; box-shadow: 1.5px 1.5px 0 #000;">войти</a>
+        <a href="{% url 'register' %}" style="cursor: none; font-weight: bold;">регистрация</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       HERO SECTION (Concrete & scattered draggable items)
+       ========================================================================== -->
+  <header id="index" class="hero-concrete">
+    
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+      открыт прием на 2025–2026 г. 
+      <a href="#" onclick="openWin98Modal('apply-modal'); return false;" style="cursor: none;">отправить заявку &rarr;</a>
+    </div>
+
+    <!-- Main Title -->
+    <h1 class="zine-title">
+      грустная школа<br>
+      <span class="italic-serif">экономики.</span>
+    </h1>
+
+    <p class="zine-subtitle">
+      площадка для творческого осмысления грусти: литературный зин, радио, галерея. мы учим капитализировать тоску.
+    </p>
+
+    <nav id="site-index" class="site-index-panel" aria-label="оглавление сайта">
+      <h2 class="site-index-title">index.txt — оглавление</h2>
+      <ol class="site-index-list">
+        <li><a href="#about">01. о школе</a></li>
+        <li><a href="#faculties">02. направления</a></li>
+        <li><a href="#books-game">03. библиотека</a></li>
+        <li><a href="#complaints">04. стена жалоб</a></li>
+        <li><a href="#community">05. комьюнити</a></li>
+      </ol>
+    </nav>
+
+    <div style="display: flex; gap: 20px; z-index: 10;">
+      <a href="#about" class="retro-btn" style="cursor: none; background-color: var(--accent-yellow); font-size: 16px; padding: 12px 28px;">войти в класс &darr;</a>
+      <button class="retro-btn" onclick="openWin98Modal('apply-modal')" style="cursor: none; background-color: white; font-size: 16px; padding: 12px 28px;">подать документы</button>
+    </div>
+
+    <!-- Scattered Interactive Workspace -->
+    <div class="hero-workspace">
+      
+      <!-- Draggable folders -->
+      <div class="drag-item folder-sticker">
+        <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+        <span>radio.mp4</span>
+      </div>
+
+      <div class="drag-item folder-sticker">
+        <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+        <span>gallery.pdf</span>
+      </div>
+
+      <div class="drag-item folder-sticker">
+        <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+        <span>litzin.txt</span>
+      </div>
+
+      <!-- Polaroid Sticker -->
+      <div class="drag-item vintage-photo-sticker">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400" alt="vintage student portrait">
+      </div>
+
+      <!-- Star sticker -->
+      <div class="drag-item star-sticker"></div>
+
+      <!-- Scotch tape piece -->
+      <div class="drag-item tape-sticker" style="top: 20%; left: 75%;"></div>
+      <div class="drag-item tape-sticker" style="top: 60%; left: 5%;"></div>
+      
+    </div>
+
+    <!-- Footprints in cement bottom right overlay -->
+    <div class="concrete-legs-overlay"></div>
+  </header>
+
+  <!-- ==========================================================================
+       SCHOOL NOTEBOOK SECTION (Story/Manifesto & margin collages)
+       ========================================================================== -->
+  <section id="about" class="notebook-sheet">
+    <div class="container">
+      
+      <h2 class="manifesto-heading">
+        мы учим искусству быть<br>
+        <span class="italic">непродуктивными</span> в эпоху<br>
+        позднего капитализма.
+      </h2>
+
+      <div class="manifesto-grid">
+        
+        <div class="manifesto-text">
+          <p>
+            грустная школа экономики — это <span class="marker-highlight">неофициальная исследовательская лаборатория</span> и арт-сообщество, где тоска, меланхолия и выгорание изучаются как главные валюты современного творческого класса.
+          </p>
+          <p>
+            мы считаем, что постоянная гонка за эффективностью, успехом и идеальным резюме разрушает личность. наш манифест — это <span class="marker-highlight">право на грусть</span>, право быть медленными и право создавать искусство без коммерческого умысла.
+          </p>
+          <p>
+            через литературу, аудио-инсталляции, исследования и арт-зины мы собираем каталог человеческой уязвимости. это твоя безопасная гавань в мире жестких KPI.
+          </p>
+        </div>
+
+        <!-- Margin Collage -->
+        <div class="notebook-collage">
+          <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&q=80&w=400" alt="Converse sneaker sticker" class="collage-item collage-converse">
+          <!-- Yellow pencil -->
+          <svg viewBox="0 0 100 20" class="collage-item collage-pencil" style="width: 140px; height: 30px;">
+            <path d="M 0,10 L 10,5 L 90,5 L 95,10 L 90,15 L 10,15 Z" fill="#FFEB3B" stroke="#000" stroke-width="1.5"/>
+            <path d="M 90,5 L 95,10 L 90,15 Z" fill="#FFD54F" stroke="#000" stroke-width="1.5"/>
+            <path d="M 95,10 L 100,10" stroke="#000" stroke-width="2"/>
+            <circle cx="5" cy="10" r="3" fill="#FF8A80"/> <!-- Eraser -->
+          </svg>
+          <!-- Coffee Stain SVG decoration -->
+          <svg viewBox="0 0 100 100" class="collage-item collage-coffee-stain">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#795548" stroke-width="3" stroke-dasharray="100,20,5,10,35,45"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- ==========================================================================
+           FACULTIES SECTION (3 columns grid files)
+           ========================================================================== -->
+      <div id="faculties" class="programs-section">
+        <h2 style="font-family: var(--font-serif); font-size: 38px; font-weight: 800; color: var(--ink-black); margin-bottom: 12px; text-transform: lowercase;">направления обучения:</h2>
+        <p style="color: #666; font-size: 16px; text-transform: lowercase; margin-bottom: 30px;">выбери свой факультет грусти</p>
+
+        <div class="programs-grid">
+          
+          <!-- Faculty 1 -->
+          <div class="program-card">
+            <div class="program-icon-wrapper">
+              <!-- Pencil icon SVG -->
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+            </div>
+            <h3>креативное письмо</h3>
+            <p>литературный зин, эссе, автофикшн и поэзия депрессии. учимся превращать личные травмы в захватывающие тексты, которые заставят читателя плакать.</p>
+            <button class="retro-btn" onclick="openWin98Modal('apply-modal')" style="cursor: none;">подать заявку</button>
+          </div>
+
+          <!-- Faculty 2 -->
+          <div class="program-card">
+            <div class="program-icon-wrapper">
+              <!-- Headphones icon SVG -->
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
+            </div>
+            <h3>★☆rap studies☆★</h3>
+            <p>исследование лоу-фай хип-хопа, грустного рэпа и эстетики спальных районов. пишем меланхоличные биты, записываем тексты о панельках и собираем плейлисты тоски.</p>
+            <button class="retro-btn" onclick="openWin98Modal('apply-modal')" style="cursor: none;">подать заявку</button>
+          </div>
+
+          <!-- Faculty 3 -->
+          <div class="program-card">
+            <div class="program-icon-wrapper">
+              <!-- Crumpled paper ball SVG representation -->
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82zM7 7h.01"/></svg>
+            </div>
+            <h3>школа дизайна</h3>
+            <p>визуальная поэзия, видео-арт, помятый коллаж и веб-брутализм. учимся верстать неидеальные scrapbook-страницы и переносить тактильность бумаги в цифровой мир.</p>
+            <button class="retro-btn" onclick="openWin98Modal('apply-modal')" style="cursor: none;">подать заявку</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==========================================================================
+           MINI-GAME 1: STEAL BOOKS IN BAG
+           ========================================================================== -->
+      <div id="books-game" class="game-steal-books">
+        
+        <div class="bag-container">
+          <h4 style="font-family: var(--font-serif); font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 15px;">моя сумка</h4>
+          
+          <div class="bag-graphic-wrapper">
+            <!-- Vintage Bag SVG asset -->
+            <img src="/static/images/vintage_bag.svg" alt="сумка" width="100%" height="100%">
+            <!-- Counting badge overlay -->
+            <div id="stolen-count" class="stolen-counter-badge">0</div>
+          </div>
+          
+          <p style="font-size: 12px; color: #666; margin-top: 15px; text-align: center;">книги можно сложить в сумку и украсть</p>
+        </div>
+
+        <div class="books-pile">
+          
+          <!-- Book 1 (Surveillance Capitalism) -->
+          <div class="book-card-drag" style="background-color: #37474F; cursor: grab;">
+            <div class="book-title">surveillance capitalism</div>
+            <div class="book-author">s. zuboff</div>
+          </div>
+
+          <!-- Book 2 (Debt) -->
+          <div class="book-card-drag" style="background-color: #5D4037; cursor: grab;">
+            <div class="book-title">debt: the first 5000 years</div>
+            <div class="book-author">d. graeber</div>
+          </div>
+
+          <!-- Book 3 (Convenience Store Woman) -->
+          <div class="book-card-drag" style="background-color: #C2185B; cursor: grab;">
+            <div class="book-title">convenience store woman</div>
+            <div class="book-author">s. murata</div>
+          </div>
+
+          <!-- Book 4 (Rest and Relaxation) -->
+          <div class="book-card-drag" style="background-color: #303F9F; cursor: grab;">
+            <div class="book-title">my year of rest</div>
+            <div class="book-author">o. moshfegh</div>
+          </div>
+
+          <!-- Book 5 (Bread and Freedom) -->
+          <div class="book-card-drag" style="background-color: #00796B; cursor: grab;">
+            <div class="book-title">bread and freedom</div>
+            <div class="book-author">n. ginzburg</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ==========================================================================
+           MINI-GAME 2: HELLO KITTY COIN PURSE
+           ========================================================================== -->
+      <h3 style="font-family: var(--font-serif); font-size: 28px; font-weight: 800; margin-bottom: 12px; margin-left: 120px;">собери мелочь со стола:</h3>
+      <p style="color: #666; font-size: 15px; margin-left: 120px; margin-bottom: 25px;">сложи рублевые монеты в розовый кошелек hello kitty</p>
+
+      <div class="game-coin-purse" style="margin-left: 120px;">
+        <!-- Banner display collected -->
+        <div class="coin-collected-banner">
+          монет в кошельке: <span id="coin-collected-count" style="font-weight: 900; color: #FF4081;">0</span>
+        </div>
+
+        <!-- Hello Kitty Purse Drop Zone -->
+        <div class="purse-drop-zone">
+          <img src="/static/images/kitty_purse.svg" alt="кошелек hello kitty" width="100%" height="100%">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ART INSTALLATION SLIDER (School of Design showcase)
+       ========================================================================== -->
+  <section style="background-color: #000; padding: 120px 0; color: white;">
+    <div class="container">
+      <h2 style="font-family: var(--font-serif); font-size: clamp(30px, 5vw, 50px); font-weight: 800; text-align: center; margin-bottom: 12px; text-transform: lowercase;">галерея школы дизайна:</h2>
+      <p style="text-align: center; opacity: 0.5; font-size: 15px; margin-bottom: 60px; text-transform: lowercase;">работы и инсталляции наших студентов</p>
+      
+      <!-- Horizontal Scrollable Art container -->
+      <div class="art-slider-wrapper" style="display: flex; gap: 30px; overflow-x: auto; padding: 20px 0; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent;">
+        
+        <!-- Installation 1 -->
+        <div style="flex: 0 0 350px; background: #111; border: 1px solid #333; padding: 15px; border-radius: 4px;">
+          <img src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&q=80&w=400" alt="installation 1" style="width: 100%; height: 240px; object-fit: cover; border-radius: 2px;">
+          <h4 style="font-family: var(--font-serif); font-size: 18px; margin-top: 15px; text-transform: lowercase;">"моя невыглаженная кровать"</h4>
+          <p style="font-size: 13px; opacity: 0.6; margin-top: 6px; text-transform: lowercase;">инсталляция, исследующая нежелание подниматься по утрам</p>
+        </div>
+
+        <!-- Installation 2 -->
+        <div style="flex: 0 0 350px; background: #111; border: 1px solid #333; padding: 15px; border-radius: 4px;">
+          <img src="https://images.unsplash.com/photo-1547891654-e66ed7edd96c?auto=format&fit=crop&q=80&w=400" alt="installation 2" style="width: 100%; height: 240px; object-fit: cover; border-radius: 2px;">
+          <h4 style="font-family: var(--font-serif); font-size: 18px; margin-top: 15px; text-transform: lowercase;">"выпитый латте"</h4>
+          <p style="font-size: 13px; opacity: 0.6; margin-top: 6px; text-transform: lowercase;">исследование пустых следов на обоях</p>
+        </div>
+
+        <!-- Installation 3 -->
+        <div style="flex: 0 0 350px; background: #111; border: 1px solid #333; padding: 15px; border-radius: 4px;">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&q=80&w=400" alt="installation 3" style="width: 100%; height: 240px; object-fit: cover; border-radius: 2px;">
+          <h4 style="font-family: var(--font-serif); font-size: 18px; margin-top: 15px; text-transform: lowercase;">"выгорание в пикселях"</h4>
+          <p style="font-size: 13px; opacity: 0.6; margin-top: 6px; text-transform: lowercase;">веб-арт проект о заполнении таблиц в Excel</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       WALL OF GRIEVANCES SECTION (Brick tiles, graffiti & stickers)
+       ========================================================================== -->
+  <section id="complaints" class="grievances-section">
+    <!-- Graffiti markers scribbles -->
+    <div class="graffiti-doodle-1">sad girls times</div>
+    <div class="graffiti-doodle-2">учиться безумно тоскливо...</div>
+    
+    <div class="container">
+      
+      <h2 class="grievance-wall-title">стена жалоб студентов</h2>
+      <p class="grievance-wall-subtitle">стена белой плитки, где каждый может поделиться своей усталостью, неудачами или выгоранием</p>
+
+      <!-- Sticker wall board area -->
+      <div id="wall-board" class="wall-board">
+        
+        <!-- Render real SQLite-moderated stickers from Django database -->
+        {% for grievance in grievances %}
+          <div class="grievance-sticker" style="background-color: {{ grievance.sticker_color }};">
+            <div class="sticker-text">{{ grievance.text }}</div>
+            <div class="sticker-author">— {{ grievance.author }}</div>
+          </div>
+        {% empty %}
+          <!-- Pre-populated static Y2K design bubbles if DB empty initially -->
+          <div class="grievance-chat-bubble" style="top: 10%; left: 15%; transform: rotate(-5deg);">
+            я устала притворяться продуктивной 24/7...
+          </div>
+          <div class="grievance-chat-bubble" style="top: 40%; right: 20%; transform: rotate(4deg);">
+            почему чашка кофе стоит дороже, чем мое эссе о ницше?
+          </div>
+        {% endfor %}
+
+      </div>
+
+      <!-- Action Button to Trigger Modal -->
+      <button class="retro-btn" onclick="openWin98Modal('grievance-modal')" style="margin: 0 auto; display: flex; font-size: 16px; padding: 12px 28px; background-color: var(--accent-pink); color: white; cursor: none;">
+        оставить жалобу на стене
+      </button>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       COMMUNITY USER POSTS FEED (Styled as paper memos)
+       ========================================================================== -->
+  <section id="community" style="background-color: #F0EDE6; padding: 100px 0; border-top: 2px dashed #000;">
+    <div class="container">
+      <h2 style="font-family: var(--font-serif); font-size: 38px; font-weight: 800; text-align: center; color: var(--ink-black); margin-bottom: 12px; text-transform: lowercase;">посты нашего комьюнити</h2>
+      <p style="text-align: center; color: #666; font-size: 15px; margin-bottom: 60px; text-transform: lowercase;">свободные мысли студентов и авторов школы</p>
+
+      {% if posts %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px;">
+          {% for post in posts %}
+            <!-- Styled as sticky memo sheets pinned by tape -->
+            <div style="background-color: #FFFFF0; border: 1.5px solid #D7CCC8; padding: 30px 24px; position: relative; box-shadow: 2px 4px 10px rgba(0,0,0,0.06); transform: rotate({% cycle '-2' '2' '-1' '3' %}deg);">
+              <!-- Top decorative Scotch Tape -->
+              <div class="tape-sticker" style="position: absolute; -top: 15px; left: 50%; transform: translateX(-50%) rotate(-4deg); width: 80px; height: 18px; z-index: 10;"></div>
+              
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-blue); font-weight: bold; text-transform: lowercase;">автор: @{{ post.author.username }}</span>
+              <h3 style="font-family: var(--font-serif); font-size: 20px; font-weight: 800; margin-top: 10px; margin-bottom: 12px; color: var(--ink-black); text-transform: lowercase;">{{ post.title }}</h3>
+              <p style="font-size: 14px; color: #4E342E; line-height: 1.5; text-transform: lowercase;">{{ post.content }}</p>
+              
+              <div style="margin-top: 20px; text-align: right; font-size: 10px; color: #999; font-family: var(--font-mono);">
+                {{ post.created_at|date:"d.m.Y H:i" }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div style="text-align: center; color: #888; font-family: var(--font-mono); font-size: 15px;">
+          пока постов нет. авторизуйся на панели навигации и напиши свой манифест!
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       WINDOWS 98 POPUP MODAL DIALOGS
+       ========================================================================== -->
+  
+  <!-- 1. School Apply Form Modal -->
+  <div id="apply-modal" class="retro-window-modal">
+    <div class="retro-window-header">
+      <div class="retro-window-title">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="white" style="margin-right: 4px;"><path d="M2 3h12v11H2V3zm1 3v7h10V6H3zm1-2h8v1H4V4z"/></svg>
+        приемная комиссия — подача заявки
+      </div>
+      <div class="retro-window-close">x</div>
+    </div>
+    
+    <div class="retro-window-body">
+      <form id="application-form">
+        {% csrf_token %}
+        <div class="retro-form-group">
+          <label>имя / псевдоним *</label>
+          <input type="text" name="name" class="retro-input" placeholder="как тебя называть" required>
+        </div>
+        
+        <div class="retro-form-group">
+          <label>электронная почта *</label>
+          <input type="email" name="email" class="retro-input" placeholder="твой@email.com" required>
+        </div>
+
+        <div class="retro-form-group">
+          <label>факультет / направление *</label>
+          <select name="faculty" class="retro-input" style="height: 38px; cursor: none;" required>
+            <option value="writing">креативное письмо</option>
+            <option value="rap">★☆rap studies☆★</option>
+            <option value="design">школа дизайна</option>
+          </select>
+        </div>
+
+        <div class="retro-form-group">
+          <label>ссылка на портфолио / работы</label>
+          <input type="url" name="portfolio_link" class="retro-input" placeholder="soundcloud, behance, drive, etc.">
+        </div>
+
+        <div class="retro-form-group">
+          <label>почему ты хочешь учиться грустить? (короткое эссе) *</label>
+          <textarea name="essay" class="retro-input" rows="4" placeholder="расскажи о своем выгорании или тоске..." required style="resize: none;"></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" class="win98-btn close-win-btn">отмена</button>
+          <button type="submit" class="win98-btn">отправить заявку</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Grievance Form Modal -->
+  <div id="grievance-modal" class="retro-window-modal">
+    <div class="retro-window-header">
+      <div class="retro-window-title">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="white" style="margin-right: 4px;"><path d="M2 2h12v12H2V2zm1 3v8h10V5H3zm2-2h6v1H5V3z"/></svg>
+        высказать жалобу на стене
+      </div>
+      <div class="retro-window-close">x</div>
+    </div>
+    
+    <div class="retro-window-body">
+      <form id="grievance-form">
+        {% csrf_token %}
+        <div class="retro-form-group">
+          <label>твое имя / псевдоним (оставь пустым для анонимности)</label>
+          <input type="text" name="author" class="retro-input" placeholder="анонимка">
+        </div>
+        
+        <div class="retro-form-group">
+          <label>опиши свое недовольство, грусть или усталость (до 500 символов) *</label>
+          <textarea name="text" class="retro-input" rows="5" maxlength="500" placeholder="напиши то, что накипело..." required style="resize: none;"></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" class="win98-btn close-win-btn">отмена</button>
+          <button type="submit" class="win98-btn">повесить на стену</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Retro Success Modal -->
+  <div id="success-modal" class="retro-window-modal" style="max-width: 320px;">
+    <div class="retro-window-header">
+      <div class="retro-window-title">диалоговое окно успеха</div>
+      <div class="retro-window-close">x</div>
+    </div>
+    <div class="retro-window-body retro-success-card">
+      <h3 style="color: #008000;">успешно!</h3>
+      <p id="success-message-text">твои данные были успешно зафиксированы в базе данных грусти.</p>
+      <button class="win98-btn close-win-btn" style="width: 80px;">ок</button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER SECTION (Deep Blue Wavy Layout)
+       ========================================================================== -->
+  <footer class="footer-slate">
+    <div class="container">
+      
+      <h3 class="footer-wave-title">sad girls times.</h3>
+      
+      <div class="footer-slate-grid">
+        
+        <div class="footer-col">
+          <h4>ресурсы</h4>
+          <ul>
+            <li><a href="#" style="cursor: none;">литзин</a></li>
+            <li><a href="#" style="cursor: none;">радио выпуск</a></li>
+            <li><a href="#" style="cursor: none;">галерея</a></li>
+            <li><a href="#" style="cursor: none;">смута выпуск</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>исследования</h4>
+          <ul>
+            <li><a href="#" style="cursor: none;">грустная экономика</a></li>
+            <li><a href="#" style="cursor: none;">капитализм тоски</a></li>
+            <li><a href="#" style="cursor: none;">архивы манифестов</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>поддержка</h4>
+          <ul>
+            <li><a href="#" style="cursor: none;">наш boosty</a></li>
+            <li><a href="#" style="cursor: none;">оставить донат</a></li>
+            <li><a href="#" style="cursor: none;">мерч школы</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>соцсети</h4>
+          <ul>
+            <li><a href="#" style="cursor: none;">telegram канал</a></li>
+            <li><a href="#" style="cursor: none;">youtube плейлист</a></li>
+            <li><a href="#" style="cursor: none;">instagram</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-slate-bottom">
+        <div>&copy; 2026. площадка для творческого осмысления грусти.</div>
+        <div>разработано в рамках школы рэпа и дизайна.</div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Modular Scripts -->
+  <script src="{% static 'js/cursor.js' %}"></script>
+  <script src="{% static 'js/drag.js' %}"></script>
+  <script src="{% static 'js/games.js' %}"></script>
+  <script src="{% static 'js/grievances.js' %}"></script>
+</body>
+</html>

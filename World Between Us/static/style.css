@@ -1,0 +1,1137 @@
+/* ==========================================================================
+   SAD SCHOOL OF ECONOMICS - COMPLETE SCRAPBOOK STYLE SYSTEM (Y2K / INDIE SLEAZE)
+   ========================================================================== */
+
+/* Fonts loaded via <link> in HTML head for faster rendering */
+
+:root {
+  --bg-concrete: #0E0E10;
+  --bg-paper: #FDFBF7;
+  --bg-tile: #F4F6F7;
+  --ink-black: #1E1E24;
+  --text-main: #FFFFFF;
+  --accent-blue: #3F51B5;
+  --accent-yellow: #FFF59D;
+  --accent-pink: #FF8A80;
+  
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'Courier New', Courier, monospace;
+  --font-retro: 'VT323', monospace;
+  
+  --shadow-tactile: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-sticker: 3px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Base resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-concrete);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
+  /* Hide native cursor for Y2K customized experience */
+  cursor: none;
+}
+
+/* Force cursor none to all interactive elements */
+a, button, input, select, textarea, [draggable], .drag-item {
+  cursor: none !important;
+}
+
+/* Custom 8-bit cursor styles */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 28px;
+  background-image: url('/static/images/pixel_cursor.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.05s ease-out;
+}
+
+#custom-cursor.hover {
+  transform: scale(1.2);
+  filter: hue-rotate(90deg); /* Color shift on hover */
+}
+
+#custom-cursor.grabbing {
+  transform: scale(0.9);
+  filter: hue-rotate(180deg);
+}
+
+/* Film grain overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* General Layout Elements */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   HERO SECTION (Wet Concrete Aesthetic)
+   ========================================================================== */
+.hero-concrete {
+  min-height: 100vh;
+  position: relative;
+  background-color: #0E0E10;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(120, 80, 255, 0.55) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(255, 80, 120, 0.45) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(60, 40, 120, 0.3) 0%, transparent 70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 120px 40px 100px;
+  text-align: center;
+}
+
+.hero-concrete::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.05);
+  pointer-events: none;
+}
+
+/* Announcement Blue Banner */
+.announcement-banner {
+  background-color: var(--accent-blue);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 5px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sticker);
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 10;
+  transform: rotate(-1.5deg);
+  border: 2px solid white;
+}
+
+.announcement-banner a {
+  color: #FFF59D;
+  text-decoration: underline;
+  margin-left: 8px;
+  font-weight: 900;
+}
+
+/* Site index / table of contents (hero) */
+.site-index-panel {
+  position: relative;
+  z-index: 10;
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto 32px;
+  padding: 18px 22px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.97);
+  border: 2px solid #000;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #000;
+  transform: rotate(1deg);
+}
+
+.site-index-title {
+  font-family: var(--font-retro);
+  font-size: 22px;
+  color: var(--ink-black);
+  text-transform: lowercase;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.site-index-list {
+  list-style: none;
+  counter-reset: site-index;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.site-index-list li a {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink-black);
+  text-decoration: none;
+  text-transform: lowercase;
+  padding: 6px 8px;
+  border: 1px dashed transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.site-index-list li a:hover {
+  background: var(--accent-yellow);
+  border-color: #000;
+}
+
+/* Main typography */
+.zine-title {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 7vw, 80px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #FFFFFF;
+  text-align: center;
+  text-transform: lowercase;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 900px;
+  text-shadow: 0 2px 40px rgba(120, 80, 255, 0.4);
+}
+
+.zine-title span.italic-serif {
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.zine-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 2vw, 22px);
+  color: #A0A0A5;
+  font-weight: 300;
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 45px;
+  text-transform: lowercase;
+  position: relative;
+  z-index: 10;
+}
+
+/* concrete-legs-overlay removed — caused black hero */
+.concrete-legs-overlay { display: none; }
+
+
+/* ==========================================================================
+   DRAGGABLE HERO STICKERS & FILES (Workspace)
+   ========================================================================== */
+.hero-workspace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.drag-item {
+  position: absolute;
+  pointer-events: auto;
+  user-select: none;
+  filter: drop-shadow(3px 5px 6px rgba(0,0,0,0.3));
+  transition: transform 0.1s ease;
+  will-change: transform;
+}
+
+.drag-item:active {
+  z-index: 100;
+  filter: drop-shadow(6px 12px 16px rgba(0,0,0,0.5));
+}
+
+/* Retro Folder Sticker */
+.folder-sticker {
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #FFFFFF;
+  padding: 8px;
+}
+
+.folder-sticker svg {
+  width: 50px;
+  height: 40px;
+  fill: #FFA726;
+  margin-bottom: 6px;
+  stroke: #000000;
+  stroke-width: 1.5;
+}
+
+.folder-sticker span {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Vintage Stickers */
+.vintage-photo-sticker {
+  width: 130px;
+  background: #FFFFFF;
+  padding: 8px 8px 24px 8px;
+  border: 1px solid #DDDDDD;
+  transform: rotate(-8deg);
+  box-shadow: var(--shadow-sticker);
+}
+
+.vintage-photo-sticker img {
+  width: 114px;
+  height: 100px;
+  object-fit: cover;
+  filter: grayscale(0.3) sepia(0.2);
+}
+
+.star-sticker {
+  width: 45px;
+  height: 45px;
+  background-color: #E040FB;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  border: 1.5px solid #000;
+}
+
+.tape-sticker {
+  width: 90px;
+  height: 25px;
+  background-color: rgba(255, 235, 59, 0.4);
+  backdrop-filter: blur(1px);
+  border-left: 3px dashed rgba(0,0,0,0.1);
+  border-right: 3px dashed rgba(0,0,0,0.1);
+  transform: rotate(20deg);
+}
+
+/* ==========================================================================
+   SCHOOL NOTEBOOK SECTION (Manifesto)
+   ========================================================================== */
+.notebook-sheet {
+  background-color: var(--bg-paper);
+  color: var(--ink-black);
+  padding: 100px 0;
+  position: relative;
+  background-image:
+    linear-gradient(90deg, rgba(239, 83, 80, 0.3) 2px, transparent 2px),
+    linear-gradient(rgba(33, 150, 243, 0.1) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 32px;
+  background-position: 120px 0, 0 0;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.04);
+  border-top: 3px solid #E0DCD5;
+  border-bottom: 3px solid #E0DCD5;
+}
+
+/* All text in lowercase for the soft/intimate aesthetic */
+.notebook-sheet h2,
+.notebook-sheet p,
+.notebook-sheet span,
+.notebook-sheet li,
+.notebook-sheet button,
+.notebook-sheet input,
+.notebook-sheet textarea {
+  text-transform: lowercase;
+}
+
+.manifesto-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(35px, 6vw, 65px);
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 50px;
+  margin-left: 120px; /* Offset past red margin */
+  max-width: 800px;
+}
+
+.manifesto-heading span.italic {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  margin-left: 120px; /* Offset past red margin */
+}
+
+.manifesto-text {
+  font-family: var(--font-sans);
+  font-size: 19px;
+  line-height: 1.7;
+  color: #333338;
+}
+
+.manifesto-text p {
+  margin-bottom: 30px;
+}
+
+/* Marker neon highlighter drawing */
+.marker-highlight {
+  position: relative;
+  display: inline;
+  z-index: 1;
+}
+
+.marker-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  width: 0; /* Animated in JS */
+  height: 50%;
+  background-color: rgba(255, 235, 59, 0.65);
+  z-index: -1;
+  transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.marker-highlight.highlight-active::after {
+  width: 100%;
+}
+
+/* Tactile collage elements scattered around notebook */
+.notebook-collage {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.collage-item {
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.15));
+}
+
+.collage-converse {
+  width: 160px;
+  transform: rotate(-12deg);
+  opacity: 0.9;
+}
+
+.collage-pencil {
+  width: 120px;
+  transform: rotate(45deg);
+}
+
+.collage-coffee-stain {
+  width: 110px;
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+}
+
+/* ==========================================================================
+   PROGRAMS / FACULTIES SECTION (Grid Files)
+   ========================================================================== */
+.programs-section {
+  padding: 80px 0;
+  margin-left: 120px; /* Offset past red margin */
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.program-card {
+  background: white;
+  border: 2px solid var(--ink-black);
+  border-radius: 12px;
+  padding: 30px 24px;
+  box-shadow: 4px 4px 0px var(--ink-black);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.program-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0px var(--ink-black);
+}
+
+.program-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ECEFF1;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink-black);
+  margin-bottom: 24px;
+}
+
+.program-icon-wrapper svg {
+  width: 32px;
+  height: 32px;
+}
+
+.program-card h3 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--ink-black);
+}
+
+.program-card p {
+  font-size: 15px;
+  color: #55555A;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  flex-grow: 1;
+}
+
+/* Retro pixelated and cute buttons */
+.retro-btn {
+  background-color: var(--bg-paper);
+  border: 2px solid var(--ink-black);
+  padding: 10px 20px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 0px var(--ink-black);
+  transition: all 0.2s ease;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.retro-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--ink-black);
+  background-color: var(--accent-yellow);
+}
+
+.retro-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--ink-black);
+}
+
+/* ==========================================================================
+   MINI-GAME 1: STEAL BOOKS IN BAG (Surveillance Capitalism)
+   ========================================================================== */
+.game-steal-books {
+  margin: 100px 0;
+  padding: 40px;
+  border: 2.5px dashed var(--ink-black);
+  background-color: #F7F5F0;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 40px;
+  position: relative;
+}
+
+.bag-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bag-graphic-wrapper {
+  width: 180px;
+  height: 180px;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Bag scale bump when book lands */
+.bag-graphic-wrapper.pulse {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+.stolen-counter-badge {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background-color: var(--accent-pink);
+  color: white;
+  font-family: var(--font-retro);
+  font-size: 26px;
+  padding: 4px 12px;
+  border-radius: 50%;
+  border: 2px solid var(--ink-black);
+  box-shadow: 2px 2px 0px var(--ink-black);
+}
+
+.books-pile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-content: center;
+  position: relative;
+  min-height: 250px;
+}
+
+/* High-fidelity CSS drawn books as draggable cards */
+.book-card-drag {
+  width: 105px;
+  height: 145px;
+  border: 1.8px solid var(--ink-black);
+  border-radius: 3px 6px 6px 3px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 3px 3px 0px rgba(0,0,0,0.15);
+  color: white;
+  position: relative;
+  will-change: transform;
+  /* Thick book spine line */
+  border-left: 6px solid rgba(0,0,0,0.25);
+  transition: opacity 0.4s ease, transform 0.1s ease;
+}
+
+.book-card-drag .book-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.book-card-drag .book-author {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   MINI-GAME 2: HELLO KITTY COIN PURSE (Silver coins scatter)
+   ========================================================================== */
+.game-coin-purse {
+  margin: 100px 0;
+  height: 420px;
+  border: 2px solid rgba(0,0,0,0.15);
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  position: relative;
+  overflow: visible;
+}
+
+.purse-drop-zone {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  width: 140px;
+  height: 140px;
+  z-index: 10;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.purse-drop-zone.purse-eat {
+  transform: scale(1.2) rotate(8deg);
+}
+
+.coin-scatter-item {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  cursor: grab;
+  z-index: 5;
+  will-change: transform;
+  transition: transform 0.1s ease, opacity 0.5s ease;
+}
+
+.coin-collected-banner {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-family: var(--font-retro);
+  font-size: 28px;
+  background-color: white;
+  border: 2px solid var(--ink-black);
+  padding: 6px 16px;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0px var(--ink-black);
+}
+
+/* ==========================================================================
+   WALL OF GRIEVANCES SECTION (Tile Wall & Graffiti)
+   ========================================================================== */
+.grievances-section {
+  background-color: var(--bg-tile);
+  padding: 100px 0;
+  position: relative;
+  /* Beautiful high-fidelity rectangular brick tiles using CSS pattern */
+  background-image: 
+    linear-gradient(#E8ECEF 2px, transparent 2px),
+    linear-gradient(90deg, #E8ECEF 2px, transparent 2px);
+  background-size: 100px 60px;
+  border-top: 3px solid #CFD8DC;
+  border-bottom: 3px solid #CFD8DC;
+  overflow: hidden;
+}
+
+/* Background graffiti decoration overlays */
+.graffiti-doodle-1 {
+  position: absolute;
+  top: 15%;
+  left: 8%;
+  font-family: var(--font-retro);
+  font-size: 65px;
+  color: rgba(229, 57, 53, 0.12); /* transparent red marker scribble */
+  transform: rotate(-15deg);
+  pointer-events: none;
+  user-select: none;
+}
+
+.graffiti-doodle-2 {
+  position: absolute;
+  bottom: 20%;
+  right: 12%;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 45px;
+  color: rgba(63, 81, 181, 0.08); /* transparent blue marker text */
+  transform: rotate(8deg);
+  pointer-events: none;
+  user-select: none;
+}
+
+.grievance-wall-title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 5vw, 55px);
+  font-weight: 900;
+  text-align: center;
+  color: var(--ink-black);
+  margin-bottom: 20px;
+  text-transform: lowercase;
+}
+
+.grievance-wall-subtitle {
+  text-align: center;
+  color: #607D8B;
+  font-size: 16px;
+  margin-bottom: 60px;
+  text-transform: lowercase;
+}
+
+.wall-board {
+  position: relative;
+  min-height: 480px;
+  margin-bottom: 50px;
+}
+
+/* Tactile floating sticky notes */
+.grievance-sticker {
+  position: absolute;
+  width: 180px;
+  padding: 16px;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  box-shadow: 3px 5px 8px rgba(0,0,0,0.1);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #263238;
+  line-height: 1.4;
+  word-wrap: break-word;
+  transform-origin: top left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 10;
+  border-radius: 1px;
+}
+
+.grievance-sticker:hover {
+  transform: scale(1.08) rotate(0deg) !important;
+  box-shadow: 6px 12px 18px rgba(0,0,0,0.18);
+  z-index: 50;
+}
+
+/* Little red pin marker for stickers */
+.grievance-sticker::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #E53935;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.3);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.grievance-sticker .sticker-author {
+  margin-top: 12px;
+  font-weight: bold;
+  text-align: right;
+  opacity: 0.7;
+}
+
+/* Sticker pinning keyframes animation */
+@keyframes stick-on {
+  0% {
+    transform: scale(2) rotate(30deg);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* CSS Drawn cute chat bubble complaints */
+.grievance-chat-bubble {
+  position: absolute;
+  background: white;
+  border: 2px solid var(--ink-black);
+  border-radius: 20px;
+  padding: 14px 20px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--ink-black);
+  box-shadow: var(--shadow-tactile);
+  max-width: 260px;
+}
+
+.grievance-chat-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 30px;
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: white transparent;
+  display: block;
+  width: 0;
+}
+
+.grievance-chat-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -13px;
+  left: 29px;
+  border-width: 11px 11px 0;
+  border-style: solid;
+  border-color: var(--ink-black) transparent;
+  display: block;
+  width: 0;
+  z-index: -1;
+}
+
+/* ==========================================================================
+   RETRO OS WINDOWS (Windows 98 / Classic MacOS Forms)
+   ========================================================================== */
+.retro-window-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 90%;
+  max-width: 480px;
+  background-color: #D6D3CE; /* Classic Win98 gray */
+  border-top: 2.5px solid #FFFFFF;
+  border-left: 2.5px solid #FFFFFF;
+  border-right: 2.5px solid #808080;
+  border-bottom: 2.5px solid #808080;
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+  z-index: 10000;
+  display: none; /* Controlled in JS */
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.retro-window-modal.active {
+  display: block;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.retro-window-header {
+  background: linear-gradient(90deg, #000080, #1084D0); /* Win98 Classic Blue gradient */
+  color: white;
+  padding: 5px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.retro-window-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.retro-window-close {
+  background-color: #D6D3CE;
+  border-top: 1.5px solid #FFFFFF;
+  border-left: 1.5px solid #FFFFFF;
+  border-right: 1.5px solid #808080;
+  border-bottom: 1.5px solid #808080;
+  width: 16px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: bold;
+  font-size: 9px;
+  color: black;
+  cursor: pointer;
+  padding-bottom: 2px;
+}
+
+.retro-window-close:active {
+  border-top: 1.5px solid #808080;
+  border-left: 1.5px solid #808080;
+  border-right: 1.5px solid #FFFFFF;
+  border-bottom: 1.5px solid #FFFFFF;
+}
+
+.retro-window-body {
+  padding: 20px;
+  font-family: var(--font-sans);
+  color: black;
+}
+
+.retro-form-group {
+  margin-bottom: 16px;
+}
+
+.retro-form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.retro-input {
+  width: 100%;
+  background-color: #FFFFFF;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  padding: 8px 10px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: black;
+  outline: none;
+}
+
+.retro-input:focus {
+  border: 2px solid #1084D0;
+}
+
+/* Success Card message windows */
+.retro-success-card {
+  text-align: center;
+  padding: 10px;
+}
+
+.retro-success-card h3 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.retro-success-card p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Win98 Button styling */
+.win98-btn {
+  background-color: #D6D3CE;
+  border-top: 2px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  padding: 6px 20px;
+  font-family: var(--font-sans);
+  font-weight: bold;
+  font-size: 13px;
+  color: black;
+  cursor: pointer;
+}
+
+.win98-btn:active {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  padding: 7px 19px 5px 21px; /* Win98 offset effect */
+}
+
+/* Background overlay when popup active */
+.modal-overlay-blur {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-color: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: none;
+}
+
+/* ==========================================================================
+   FOOTER (Deep Slate Blue)
+   ========================================================================== */
+.footer-slate {
+  background-color: var(--accent-blue);
+  color: white;
+  padding: 80px 0 40px 0;
+  border-top: 3px solid white;
+}
+
+.footer-wave-title {
+  font-family: var(--font-serif);
+  font-size: clamp(35px, 7vw, 75px);
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: -2px;
+  margin-bottom: 50px;
+  text-transform: lowercase;
+  background: linear-gradient(to right, #FFF59D, #FFFFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-slate-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 60px;
+  font-family: var(--font-sans);
+}
+
+.footer-col h4 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 20px;
+  color: #FFF59D;
+  font-weight: 700;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  transition: color 0.25s ease;
+  text-transform: lowercase;
+}
+
+.footer-col ul li a:hover {
+  color: #FFF59D;
+  text-decoration: underline;
+}
+
+.footer-slate-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  text-transform: lowercase;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (Adaptive styling)
+   ========================================================================== */
+@media (max-width: 960px) {
+  .notebook-sheet {
+    background-position: 50px 0, 0 0, 0 0;
+  }
+  
+  .manifesto-heading {
+    margin-left: 60px;
+  }
+  
+  .manifesto-grid {
+    grid-template-columns: 1fr;
+    margin-left: 60px;
+    gap: 40px;
+  }
+  
+  .programs-section {
+    margin-left: 60px;
+  }
+  
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .game-steal-books {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .footer-slate-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .notebook-sheet {
+    background-position: 30px 0, 0 0, 0 0;
+  }
+  
+  .manifesto-heading {
+    margin-left: 40px;
+  }
+  
+  .manifesto-grid {
+    margin-left: 40px;
+  }
+  
+  .programs-section {
+    margin-left: 40px;
+  }
+  
+  .footer-slate-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-slate-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
